@@ -1,10 +1,19 @@
+# FORK UPDATES
+
+* Material actualizado segun [UVirtual](https://uvirtual.usach.cl/moodle/course/view.php?id=32255).
+* Ampliar la carpeta de `Material Complementario`.
+* Mejorar la Estructura de Lecturas.
+* Corregir archivos incompletos.
+
+---
+
 ## 10110 - FUNDAMENTOS DE COMPUTACIÓN Y PROGRAMACIÓN
 ## 10145 - FUNDAMENTOS DE PROGRAMACIÓN PARA INGENIERÍA
 
 ---
 
 Repositorio de material de los cursos comunes de programación de la Universidad de Santiago de Chile (USACH)
-Segundo semestre de 2023
+Primer semestre de 2024
 
 ---
 
@@ -35,6 +44,6 @@ Segundo semestre de 2023
 * Documentos: Fechas de evaluaciones, código de honor y otros.
 * Material complementario: Tutoriales y otros recursos externos de interés. 
 
---
+---
 
 ## CONSULTAS: programacion.diinf@usach.cl
