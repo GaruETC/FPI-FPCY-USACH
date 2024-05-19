@@ -43,7 +43,7 @@ Primer semestre de 2024
 # CARPETAS
 * Lecturas: Lecturas de todas las clases del curso.
 * Documentos: Fechas de evaluaciones, código de honor y otros.
-* Material Complementario: Tutoriales y otros recursos externos de interés.
+* Material_Complementario: Tutoriales y otros recursos externos de interés.
 * Laboratorio: Material referente al Laboratorio del curso.
 
 ---
