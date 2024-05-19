@@ -2,7 +2,8 @@
 
 * Material actualizado segun [UVirtual](https://uvirtual.usach.cl/moodle/course/view.php?id=32255).
 * Ampliar la carpeta de `Material Complementario`.
-* Mejorar la Estructura de Lecturas.
+* Agregar la carpeta `Laboratorio`
+* Mejorar la Estructura de `Lecturas`.
 * Corregir archivos incompletos.
 
 ---
@@ -42,7 +43,8 @@ Primer semestre de 2024
 # CARPETAS
 * Lecturas: Lecturas de todas las clases del curso.
 * Documentos: Fechas de evaluaciones, código de honor y otros.
-* Material complementario: Tutoriales y otros recursos externos de interés. 
+* Material Complementario: Tutoriales y otros recursos externos de interés.
+* Laboratorio: Material referente al Laboratorio del curso.
 
 ---
 
