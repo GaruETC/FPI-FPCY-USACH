@@ -1,10 +1,12 @@
+import os
+import re
 from playwright.sync_api import ElementHandle, Playwright, sync_playwright
 from playwright.sync_api import Page, Browser
 from dataclasses import dataclass
 from typing import Optional, List
 
 USER_AGENT      = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-URL_REPLIT_MAIN = 'https://replit.com/~'
+URL_REPLIT_MAIN = 'https://replit.com'
 
 @dataclass
 class Test:
@@ -17,10 +19,10 @@ class Test:
 @dataclass
 class Guide:
     title   :   str
-    test    :   List[Test]
-    def __init__(self, title: Optional[str], test: List[Test]):
+    tests    :   List[Test]
+    def __init__(self, title: Optional[str], tests: List[Test]):
         self.title  = title if title else "UNKNOW_GUIDE_TITLE"
-        self.test   = test
+        self.tests   = tests
 
 @dataclass
 class User:
@@ -42,7 +44,7 @@ class ReplitData:
     def __init_playwright(self):
         try:
             self.playwright_instance = sync_playwright().start()
-            self.browser    = self.playwright_instance.chromium.launch(headless=True)
+            self.browser    = self.playwright_instance.chromium.launch(headless=False)
             context         = self.browser.new_context(user_agent=USER_AGENT)   
             self.page       = context.new_page()      
         except Exception as err:
@@ -62,7 +64,7 @@ class ReplitData:
             raise ValueError("[!] Page not initialized")
 
         try:
-            self.page.goto(URL_REPLIT_MAIN)
+            self.page.goto(f'{URL_REPLIT_MAIN}/~')
             self.page.fill('input[name="username"]', self.replit_user.username)
             self.page.wait_for_timeout(500)
             self.page.fill('input[name="password"]', self.replit_user.password)
@@ -91,7 +93,9 @@ class ReplitData:
             raise ValueError("[!] Page not initialized")
 
         try:
-            self.page.goto(self.replit_user.team)
+            replit_team = f"{URL_REPLIT_MAIN}/team/{self.replit_user.team}"
+
+            self.page.goto(replit_team)
             self.page.wait_for_selector('span:has-text("Back to all Teams")')
 
             guide_elems = self.page.query_selector_all('div.jsx-72ccb88e5e706d90.stack')
@@ -119,6 +123,22 @@ class ReplitData:
 
         except Exception as err:
             raise Exception(f"[!] Failed on extract guides data: {err}")
+
+    def get_guides(self, guides: List[Guide]):
+        if not self.replit_user:
+            raise ValueError("[!] Failed on download_guides: User not initialized")
+        replit_team = self.replit_user.team
+
+        def create_dir(name_dir: str, root_dir: str = replit_team):
+            try:
+                os.makedirs(name=f"{root_dir}/{name_dir}", exist_ok=True)
+            except Exception as err:
+                raise Exception(f"[!] Failed on create directories: {err}")
+        def download_guides():
+            pass
+        for guide in guides:
+            for test in guide.tests:
+                create_dir(test.title, f"{replit_team}/{guide.title}")
 
     def close(self):
         try:
