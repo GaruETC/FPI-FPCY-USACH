@@ -1,84 +1,115 @@
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import Playwright, sync_playwright
+from playwright.sync_api import Page, Browser
+from dataclasses import dataclass
+from typing import Optional
 
-USER_AGENT = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
-URL = 'https://replit.com/~'
+USER_AGENT      = 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
+URL_REPLIT_MAIN = 'https://replit.com/~'
 
-def js_selector(page, selector):
-    result =  page.evaluate("""
-        () => {
-            return Array.from(document.querySelectorAll('%s'))
-                .map(element => element.textContent);
-        }
-    """ % selector)
+@dataclass
+class User:
+    username    : str
+    password    : str
+    team        : str
 
-    return result
+class ReplitData:
+    def __init__(self):
+        self.playwright_instance    : Optional[Playwright]  = None
+        self.browser                : Optional[Browser]     = None
+        self.page                   : Optional[Page]        = None
+        self.replit_user            : Optional[User]        = None
 
+    def init(self):
+        self.__init_playwright()
+        self.__new_user()
 
-def replit_data():
-    print("[i] Replit Data\n")
-    replit_team     = input("Enter Replit Team: ")
-    replit_user     = input("Enter Replit Username: ")
-    replit_password = input("Enter Replit Password: ")
+    def __init_playwright(self):
+        self.playwright_instance = sync_playwright().start()
+        self.browser    = self.playwright_instance.chromium.launch(headless=True)
+        context         = self.browser.new_context(user_agent=USER_AGENT)   
+        self.page       = context.new_page()      
 
-    return {'team': replit_team, 'user': replit_user, 'password': replit_password}
+    def __new_user(self):
+        print("[i] Replit Data\n")
+        user     = input("Enter Replit Username: ")
+        password = input("Enter Replit Password: ")
+        team     = input("Enter Replit Team: ")
+        self.replit_user = User(user, password, team)
 
-def login_page(page, url, **credentials):
-    page.goto(url)
-    page.fill('input[name="username"]', credentials['user'])
-    page.wait_for_timeout(500)
-    page.fill('input[name="password"]', credentials['password'])
-    page.wait_for_timeout(500)
-    page.click('button[data-cy="log-in-btn"]')
-    page.wait_for_selector('h1:has-text("Home")')
-    print("[i] Access\n")
+    def login(self):
+        if not self.replit_user:
+            raise ValueError("[!] User not initialized.")
+        if not self.page:
+            raise ValueError("[!] Page not initialized.")
 
-    return page
+        self.page.goto(URL_REPLIT_MAIN)
+        self.page.fill('input[name="username"]', self.replit_user.username)
+        self.page.wait_for_timeout(500)
+        self.page.fill('input[name="password"]', self.replit_user.password)
+        self.page.wait_for_timeout(500)
+        self.page.click('button[data-cy="log-in-btn"]')
+        self.page.wait_for_selector('h1:has-text("Home")')
+        print("[i] Access\n")
 
-def guides_data(page, team):
-    guides = {}
+    def js_selector(self, selector):
+        if not self.page:
+            raise ValueError("[!] Page not initialized.")
+        result =  self.page.evaluate("""
+            () => {
+                return Array.from(document.querySelectorAll('%s'))
+                    .map(element => element.textContent);
+            }
+        """ % selector)
 
-    page.goto(team)
-    page.wait_for_selector('span:has-text("Back to all Teams")')
+        return result
 
-    guides_content = page.query_selector_all('div.jsx-72ccb88e5e706d90.stack')
-    
-    for guide in guides_content:
-        guides_title = guide.query_selector('h4.jsx-4210826056.heading.stack-heading')
-        guides_title = guides_title.text_content() if guides_title else None
+    def guides_data(self):
+        if not self.replit_user:
+            raise ValueError("[!] User not initialized.")
+        if not self.page:
+            raise ValueError("[!] Page not initialized.")
 
-        tests = guide.query_selector_all('div.jsx-617b8fb557db5cc1 a.title-link')
-        guide_content = {}
-        for test in tests:
-            test_title = test.query_selector('span') 
-            test_link = test.get_attribute('href')
+        guides = {}
+        self.page.goto(self.replit_user.team)
+        self.page.wait_for_selector('span:has-text("Back to all Teams")')
 
-            test_title = test_title.text_content() if test_title else None
-            guide_content.update({ test_title : test_link })
+        guides_content = self.page.query_selector_all('div.jsx-72ccb88e5e706d90.stack')
+        
+        for guide in guides_content:
+            guides_title = guide.query_selector('h4.jsx-4210826056.heading.stack-heading')
+            guides_title = guides_title.text_content() if guides_title else None
 
-        guides.update({ guides_title : guide_content })
+            tests = guide.query_selector_all('div.jsx-617b8fb557db5cc1 a.title-link')
+            guide_content = {}
+            for test in tests:
+                test_title = test.query_selector('span') 
+                test_link = test.get_attribute('href')
 
-    return guides
+                test_title = test_title.text_content() if test_title else None
+                guide_content.update({ test_title : test_link })
 
+            guides.update({ guides_title : guide_content })
+
+        return guides
+
+    def close(self):
+        if self.browser:
+            self.browser.close()
+            self.browser    = None
+            self.page       = None
+
+        if self.playwright_instance:
+            self.playwright_instance.stop()
 
 def main():
-    replit = replit_data()
+    replit = ReplitData()
+    replit.init()
 
-    with sync_playwright() as p:
-        browser = p.chromium.launch(headless=False)
-        context = browser.new_context(user_agent=USER_AGENT)
-        page = context.new_page()
+    replit.login()
+    guides = replit.guides_data()
+    print(guides)
 
-        page = login_page(
-            page    = page,
-            url     = URL,
-            user    =replit['user'],
-            password=replit['password']
-        )
-
-        guides_replit = guides_data(page, replit['team'])
-        print(guides_replit)
-
-        browser.close()
+    replit.close()
 
 
 if __name__ == "__main__":
