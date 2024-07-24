@@ -129,6 +129,8 @@ class ReplitData:
         if not self.page:
             raise ValueError("[!] Failed on download_guides: Page not initialized")
 
+        team_name = self.replit_user.team
+
         def create_dir(name_dir: str):
             try:
                 os.makedirs(name=name_dir, exist_ok=True)
@@ -154,7 +156,12 @@ class ReplitData:
 
         for guide in guides:
             for test_obj in guide.tests:
-                test_file_path = os.path.join(self.replit_user.team, guide.title, test_obj.title)
+                team_name       = team_name.replace('/', '_')
+                guide.title     = guide.title.replace('/', '_')
+                test_obj.title  = test_obj.title.replace('/', '_')
+
+                test_file_path = os.path.join(team_name, guide.title, test_obj.title)
+
                 create_dir(test_file_path)
                 download_test(test=test_obj, name_dir=test_file_path)
 
