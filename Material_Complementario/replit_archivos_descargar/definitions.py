@@ -1,5 +1,5 @@
 import os
-from playwright.sync_api import ElementHandle, Playwright, sync_playwright
+from playwright.sync_api import ElementHandle, Playwright, sync_playwright, Error as PlaywrightError
 from playwright.sync_api import Page, Browser
 from dataclasses import dataclass
 from typing import Optional, List
@@ -139,16 +139,13 @@ class ReplitData:
 
         def download_test(test: Test, page: Page = self.page, name_dir: str = '.'):
             print("\n[i] Downloading Test")
-            page.goto(f"{URL_REPLIT_MAIN}/{test.link}")
-            page.wait_for_selector("button[aria-label='menu'].css-11qfkor")
-            dialog_notification_box = page.query_selector("div.css-1wjh7wm[aria-label='Dialog'] div.css-74zdi8 h2.css-nsb1ls")
-            if dialog_notification_box != None:
-                page.click("span:has-text('Deny')")
-                page.wait_for_timeout(500)
-            page.click("button[aria-label='menu'].css-11qfkor")
-            page.wait_for_selector("div#item-4")
             with page.expect_download() as download_data:
-                page.click("div#item-4")
+                try:
+                    page.goto(f"{URL_REPLIT_MAIN}/{test.link}.zip")
+                except PlaywrightError as err:
+                    if 'waiting until "load"' in err.args:
+                        print(f"[!] Failed to Download {test.link}\n\t{err}")
+
             test_file       = download_data.value
             test_path_file  = os.path.join(name_dir, f"{test.title}.zip") 
             test_file.save_as(test_path_file)
