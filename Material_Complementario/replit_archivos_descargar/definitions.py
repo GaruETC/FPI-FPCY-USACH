@@ -53,7 +53,7 @@ class ReplitData:
         print("[i] Replit Data\n")
         user     = input("Enter Replit Username: ")
         password = input("Enter Replit Password: ")
-        team     = input("Enter Replit Team: ")
+        team     = input("Enter Replit Team (https://replit.com/team/{team_name}): ")
         self.replit_user = User(user, password, team)
 
     def login(self) -> Optional[Exception]:
