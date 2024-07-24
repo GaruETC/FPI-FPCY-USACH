@@ -1,5 +1,4 @@
 import os
-import re
 from playwright.sync_api import ElementHandle, Playwright, sync_playwright
 from playwright.sync_api import Page, Browser
 from dataclasses import dataclass
@@ -126,19 +125,38 @@ class ReplitData:
 
     def get_guides(self, guides: List[Guide]):
         if not self.replit_user:
-            raise ValueError("[!] Failed on download_guides: User not initialized")
-        replit_team = self.replit_user.team
+            raise ValueError("[!] Failed on download_guides: Page not initialized")
+        if not self.page:
+            raise ValueError("[!] Failed on download_guides: Page not initialized")
 
-        def create_dir(name_dir: str, root_dir: str = replit_team):
+        def create_dir(name_dir: str):
             try:
-                os.makedirs(name=f"{root_dir}/{name_dir}", exist_ok=True)
+                os.makedirs(name=name_dir, exist_ok=True)
             except Exception as err:
                 raise Exception(f"[!] Failed on create directories: {err}")
-        def download_guides():
-            pass
+
+        def download_test(test: Test, page: Page = self.page, name_dir: str = '.'):
+            print("\n[i] Downloading Test")
+            page.goto(f"{URL_REPLIT_MAIN}/{test.link}")
+            page.wait_for_selector("button[aria-label='menu'].css-11qfkor")
+            dialog_notification_box = page.query_selector("div.css-1wjh7wm[aria-label='Dialog'] div.css-74zdi8 h2.css-nsb1ls")
+            if dialog_notification_box != None:
+                page.click("span:has-text('Deny')")
+                page.wait_for_timeout(500)
+            page.click("button[aria-label='menu'].css-11qfkor")
+            page.wait_for_selector("div#item-4")
+            with page.expect_download() as download_data:
+                page.click("div#item-4")
+            test_file       = download_data.value
+            test_path_file  = os.path.join(name_dir, f"{test.title}.zip") 
+            test_file.save_as(test_path_file)
+            print(test_path_file)
+
         for guide in guides:
-            for test in guide.tests:
-                create_dir(test.title, f"{replit_team}/{guide.title}")
+            for test_obj in guide.tests:
+                test_file_path = os.path.join(self.replit_user.team, guide.title, test_obj.title)
+                create_dir(test_file_path)
+                download_test(test=test_obj, name_dir=test_file_path)
 
     def close(self):
         try:

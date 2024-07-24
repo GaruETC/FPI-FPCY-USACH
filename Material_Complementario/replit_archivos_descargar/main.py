@@ -11,12 +11,7 @@ def main():
 
     print("\n[i] Access\n")
     guides  = replit.guides_data()
-    print(guides)
-<<<<<<< HEAD
-    #replit.download_guides(guides)
-=======
-    #replit.get_guides(guides)
->>>>>>> b050fc1 (feat(ReplitData): add `get_guides(self, guides: List[Guide])`.)
+    replit.get_guides(guides)
 
     replit.close()
 
