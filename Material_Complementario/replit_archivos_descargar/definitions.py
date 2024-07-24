@@ -148,8 +148,12 @@ class ReplitData:
 
             test_file       = download_data.value
             test_path_file  = os.path.join(name_dir, f"{test.title}.zip") 
-            test_file.save_as(test_path_file)
-            print(test_path_file)
+
+            try:
+                test_file.save_as(test_path_file)
+                print(test_path_file)
+            except PlaywrightError as err:
+                print(f"[!] Failed to save the file {test.link}\n\t{err}")
 
         for guide in guides:
             for test_obj in guide.tests:
