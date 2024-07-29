@@ -2,6 +2,7 @@
 
 * Material actualizado segun [UVirtual](https://uvirtual.usach.cl/moodle/course/view.php?id=32255).
 * Ampliar la carpeta de `Material Complementario`.
+    * Crear Herramientas de utilidad para el curso.
 * Agregar la carpeta `Laboratorio`
 * Estandarizar la estructura de carpetas y archivos.
 * Corregir archivos incompletos.
