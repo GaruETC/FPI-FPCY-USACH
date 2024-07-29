@@ -9,7 +9,7 @@ def main():
     if err != None:
         exit(f"[!] Failed to Login: {err}")
 
-    print("\n[i] Access\n")
+    print("\n[i] Access")
     guides  = replit.guides_data()
     replit.get_guides(guides)
 

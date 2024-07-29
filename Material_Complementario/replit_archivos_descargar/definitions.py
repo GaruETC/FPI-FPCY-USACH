@@ -9,6 +9,7 @@ URL_REPLIT_MAIN = 'https://replit.com'
 
 @dataclass
 class Test:
+    """Test Object with a title and a link."""
     title   :   str
     link    :   str
     def __init__(self, title: Optional[str], link: Optional[str]):
@@ -17,6 +18,7 @@ class Test:
 
 @dataclass
 class Guide:
+    """Guide Object with title and a list of Test Objects."""
     title   :   str
     tests    :   List[Test]
     def __init__(self, title: Optional[str], tests: List[Test]):
@@ -25,11 +27,13 @@ class Guide:
 
 @dataclass
 class User:
+    "User Object with a username, password, and Replit team name."""
     username    : str
     password    : str
     team        : str
 
 class ReplitData:
+    """Handles interaction with Replit using Playwright."""
     def __init__(self):
         self.playwright_instance    : Optional[Playwright]  = None
         self.browser                : Optional[Browser]     = None
@@ -37,10 +41,12 @@ class ReplitData:
         self.replit_user            : Optional[User]        = None
 
     def init(self):
+        """Initializes the ReplitData object, setting up the Playwright instance, browser, and page."""
         self.__init_playwright()
         self.__init_user()
 
     def __init_playwright(self):
+        """Starts the Playwright instance and launches a browser."""
         try:
             self.playwright_instance = sync_playwright().start()
             self.browser    = self.playwright_instance.chromium.launch(headless=False)
@@ -50,6 +56,8 @@ class ReplitData:
             raise Exception(f"[!] Failed on init playwright {err}")
 
     def __init_user(self):
+        """Prompts the user for Replit credentials and initializes User Object data."""
+        print("[i] Replit Data\n")
         print("[i] Replit Data\n")
         user     = input("Enter Replit Username: ")
         password = input("Enter Replit Password: ")
@@ -57,6 +65,7 @@ class ReplitData:
         self.replit_user = User(user, password, team)
 
     def login(self) -> Optional[Exception]:
+        """Logs in to Replit using the provided user credentials."""
         if not self.replit_user:
             raise ValueError("[!] User not initialized")
         if not self.page:
@@ -74,6 +83,7 @@ class ReplitData:
             return err
 
     def js_selector(self, selector: str) -> Optional[List[ElementHandle]]:
+        """JavaScript selector on page, returns the results."""
         if not self.page:
             raise ValueError("[!] Page not initialized")
         result: Optional[List[ElementHandle]] =  self.page.evaluate("""
@@ -86,6 +96,7 @@ class ReplitData:
         return result
 
     def guides_data(self) -> List[Guide]:
+        """Extracts Guides and their associated Tests from the Replit team page."""
         if not self.replit_user:
             raise ValueError("[!] User not initialized")
         if not self.page:
@@ -102,6 +113,7 @@ class ReplitData:
             guides : List[Guide] = []
 
             def extract_test(test_elem: ElementHandle) -> Test:
+                """Extracts test from Replit team page."""
                 test_title  = test_elem.query_selector('span')                  
                 test_link   = test_elem.get_attribute('href')                   
                                                                                 
@@ -109,6 +121,7 @@ class ReplitData:
                 return Test(test_title, test_link)
 
             def extract_guide(guide_elem: ElementHandle) -> Guide:
+                """Extracts Guide from Replit team page"""
                 guides_title    = guide_elem.query_selector('h4.jsx-4210826056.heading.stack-heading')
                 guides_title    = guides_title.text_content() if guides_title else None
 
@@ -124,6 +137,7 @@ class ReplitData:
             raise Exception(f"[!] Failed on extract guides data: {err}")
 
     def get_guides(self, guides: List[Guide]):
+        """Downloads the Guide and Test, saves them to the local filesystem."""
         if not self.replit_user:
             raise ValueError("[!] Failed on download_guides: Page not initialized")
         if not self.page:
@@ -132,12 +146,15 @@ class ReplitData:
         team_name = self.replit_user.team
 
         def create_dir(name_dir: str):
+            """Create directories for the Guide and Test."""
             try:
                 os.makedirs(name=name_dir, exist_ok=True)
             except Exception as err:
                 raise Exception(f"[!] Failed on create directories: {err}")
 
         def download_test(test: Test, page: Page = self.page, name_dir: str = '.'):
+            """Downloads Test file from link and saves it in Test directory."""
+            print("\n[i] Downloading Test")
             print("\n[i] Downloading Test")
             with page.expect_download() as download_data:
                 try:
@@ -167,6 +184,7 @@ class ReplitData:
                 download_test(test=test_obj, name_dir=test_file_path)
 
     def close(self):
+        """Closes the browser and Playwright instance."""
         try:
             if self.browser:
                 self.browser.close()
