@@ -3,7 +3,7 @@
 import argparse
 from definitions import Prog
 
-def get_args():
+def get_args() -> Prog:
     parser = argparse.ArgumentParser(
         prog='revisador',
         description='Verificar la funcionalidad de un programa de python a partir de un archivo de tests con parametros de entrada y salida definidos',
