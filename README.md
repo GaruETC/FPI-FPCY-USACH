@@ -7,6 +7,22 @@
 * Estandarizar la estructura de carpetas y archivos.
 * Corregir archivos incompletos.
 
+## TODO
+
+* [Ejercicios/02-2023/](Ejercicios/02-2023/)
+    - [ ] Revisar la estructura y contenidos de los archivos (tener las instrucciones y archivos necesarios para el ejercicio)
+        - [ ] [Controles-Laboratorio](Ejercicios/02-2023/Controles-Laboratorio/)
+        - [ ] [Guia-1-IO](Ejercicios/02-2023/Guia-1-IO/)
+        - [ ] [Guia-2-Condicionales](Ejercicios/02-2023/Guia-2-Condicionales/)
+        - [ ] [Guia-3-Iteraciones](Ejercicios/02-2023/Guia-3-Iteraciones/)
+        - [ ] [Guia-4-Listas](Ejercicios/02-2023/Guia-4-Listas/)
+        - [ ] [Guia-5-String-y-Listas](Ejercicios/02-2023/Guia-5-String-y-Listas/)
+        - [ ] [Guia-6-Funciones](Ejercicios/02-2023/Guia-6-Funciones/)
+        - [ ] [Guia-7-Recursion](Ejercicios/02-2023/Guia-7-Recursion/)
+        - [ ] [Guia-8-Archivos](Ejercicios/02-2023/Guia-8-Archivos/)
+* [Utilidades/test_funcionales](Material_Complementario/Utilidades/tests_funcionales/)
+    - [ ] Arreglar el script de test en la verificacion de casos
+    - [ ] Adaptar el script para funcionar con los ejemplos en los archivos `instruccions.md` de las Guias
 ---
 
 ## 10110 - FUNDAMENTOS DE COMPUTACIÓN Y PROGRAMACIÓN
