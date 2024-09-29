@@ -4,7 +4,7 @@ def get_args():
     parser = argparse.ArgumentParser(
         prog='Test_Funcionales',
         description='Ejecutar tests sobre un programa de python a partir de un archivo .txt con los parametros deseados.',
-        epilog='https://github.com/Cristobal-Quezada-N/2024_1/'
+        epilog='https://github.com/Cristobal-Quezada-N/FPI-FPCY-USACH'
     )
     parser.add_argument(
         '-d',
