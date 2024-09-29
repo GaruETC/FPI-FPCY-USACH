@@ -24,6 +24,7 @@
     - [ ] Arreglar el script de test en la verificacion de casos
     - [ ] Adaptar el script para funcionar con los ejemplos en los archivos `instruccions.md` de las Guias
     - [ ] Deprecar el script `Makefile` y adaptar un script en python
+* Desarrollar Codigo de Conducta para la colaboración en el presente repositorio
 ---
 
 ## 10110 - FUNDAMENTOS DE COMPUTACIÓN Y PROGRAMACIÓN
