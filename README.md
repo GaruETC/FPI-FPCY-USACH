@@ -23,6 +23,7 @@
 * [Utilidades/test_funcionales](Material_Complementario/Utilidades/tests_funcionales/)
     - [ ] Arreglar el script de test en la verificacion de casos
     - [ ] Adaptar el script para funcionar con los ejemplos en los archivos `instruccions.md` de las Guias
+    - [ ] Deprecar el script `Makefile` y adaptar un script en python
 ---
 
 ## 10110 - FUNDAMENTOS DE COMPUTACIÓN Y PROGRAMACIÓN
