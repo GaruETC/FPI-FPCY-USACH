@@ -25,6 +25,9 @@
     - [ ] Adaptar el script para funcionar con los ejemplos en los archivos `instruccions.md` de las Guias
     - [ ] Deprecar el script `Makefile` y adaptar un script en python
 * Desarrollar Codigo de Conducta para la colaboración en el presente repositorio
+
+## FAQ
+* Dudas y Contacto (respecto al repositorio, sobre la asignatura en sí contactar a [Coordinación](programacion.diinf@usach.cl)): cristobal.quezada.n@usach.cl
 ---
 
 ## 10110 - FUNDAMENTOS DE COMPUTACIÓN Y PROGRAMACIÓN
