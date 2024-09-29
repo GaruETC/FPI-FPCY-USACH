@@ -1,0 +1,110 @@
+Matriz 1
+   Matriz 1: 21 elementos coinciden.
+   Matriz 2: 0 elementos coinciden.
+   Matriz 3: 2 elementos coinciden.
+   Matriz 4: 2 elementos coinciden.
+   Matriz 5: 3 elementos coinciden.
+   Matriz 6: 2 elementos coinciden.
+   Matriz 7: 4 elementos coinciden.
+   Matriz 8: 3 elementos coinciden.
+   Matriz 9: 3 elementos coinciden.
+   Matriz 10: 3 elementos coinciden.
+Matriz 2
+   Matriz 1: 0 elementos coinciden.
+   Matriz 2: 21 elementos coinciden.
+   Matriz 3: 3 elementos coinciden.
+   Matriz 4: 1 elementos coinciden.
+   Matriz 5: 1 elementos coinciden.
+   Matriz 6: 5 elementos coinciden.
+   Matriz 7: 3 elementos coinciden.
+   Matriz 8: 2 elementos coinciden.
+   Matriz 9: 2 elementos coinciden.
+   Matriz 10: 1 elementos coinciden.
+Matriz 3
+   Matriz 1: 2 elementos coinciden.
+   Matriz 2: 3 elementos coinciden.
+   Matriz 3: 21 elementos coinciden.
+   Matriz 4: 1 elementos coinciden.
+   Matriz 5: 1 elementos coinciden.
+   Matriz 6: 0 elementos coinciden.
+   Matriz 7: 4 elementos coinciden.
+   Matriz 8: 1 elementos coinciden.
+   Matriz 9: 0 elementos coinciden.
+   Matriz 10: 2 elementos coinciden.
+Matriz 4
+   Matriz 1: 2 elementos coinciden.
+   Matriz 2: 1 elementos coinciden.
+   Matriz 3: 1 elementos coinciden.
+   Matriz 4: 21 elementos coinciden.
+   Matriz 5: 2 elementos coinciden.
+   Matriz 6: 1 elementos coinciden.
+   Matriz 7: 4 elementos coinciden.
+   Matriz 8: 3 elementos coinciden.
+   Matriz 9: 0 elementos coinciden.
+   Matriz 10: 2 elementos coinciden.
+Matriz 5
+   Matriz 1: 3 elementos coinciden.
+   Matriz 2: 1 elementos coinciden.
+   Matriz 3: 1 elementos coinciden.
+   Matriz 4: 2 elementos coinciden.
+   Matriz 5: 21 elementos coinciden.
+   Matriz 6: 2 elementos coinciden.
+   Matriz 7: 2 elementos coinciden.
+   Matriz 8: 2 elementos coinciden.
+   Matriz 9: 6 elementos coinciden.
+   Matriz 10: 2 elementos coinciden.
+Matriz 6
+   Matriz 1: 2 elementos coinciden.
+   Matriz 2: 5 elementos coinciden.
+   Matriz 3: 0 elementos coinciden.
+   Matriz 4: 1 elementos coinciden.
+   Matriz 5: 2 elementos coinciden.
+   Matriz 6: 21 elementos coinciden.
+   Matriz 7: 4 elementos coinciden.
+   Matriz 8: 3 elementos coinciden.
+   Matriz 9: 7 elementos coinciden.
+   Matriz 10: 1 elementos coinciden.
+Matriz 7
+   Matriz 1: 4 elementos coinciden.
+   Matriz 2: 3 elementos coinciden.
+   Matriz 3: 4 elementos coinciden.
+   Matriz 4: 4 elementos coinciden.
+   Matriz 5: 2 elementos coinciden.
+   Matriz 6: 4 elementos coinciden.
+   Matriz 7: 21 elementos coinciden.
+   Matriz 8: 4 elementos coinciden.
+   Matriz 9: 3 elementos coinciden.
+   Matriz 10: 3 elementos coinciden.
+Matriz 8
+   Matriz 1: 3 elementos coinciden.
+   Matriz 2: 2 elementos coinciden.
+   Matriz 3: 1 elementos coinciden.
+   Matriz 4: 3 elementos coinciden.
+   Matriz 5: 2 elementos coinciden.
+   Matriz 6: 3 elementos coinciden.
+   Matriz 7: 4 elementos coinciden.
+   Matriz 8: 21 elementos coinciden.
+   Matriz 9: 3 elementos coinciden.
+   Matriz 10: 3 elementos coinciden.
+Matriz 9
+   Matriz 1: 3 elementos coinciden.
+   Matriz 2: 2 elementos coinciden.
+   Matriz 3: 0 elementos coinciden.
+   Matriz 4: 0 elementos coinciden.
+   Matriz 5: 6 elementos coinciden.
+   Matriz 6: 7 elementos coinciden.
+   Matriz 7: 3 elementos coinciden.
+   Matriz 8: 3 elementos coinciden.
+   Matriz 9: 21 elementos coinciden.
+   Matriz 10: 1 elementos coinciden.
+Matriz 10
+   Matriz 1: 3 elementos coinciden.
+   Matriz 2: 1 elementos coinciden.
+   Matriz 3: 2 elementos coinciden.
+   Matriz 4: 2 elementos coinciden.
+   Matriz 5: 2 elementos coinciden.
+   Matriz 6: 1 elementos coinciden.
+   Matriz 7: 3 elementos coinciden.
+   Matriz 8: 3 elementos coinciden.
+   Matriz 9: 1 elementos coinciden.
+   Matriz 10: 21 elementos coinciden.
