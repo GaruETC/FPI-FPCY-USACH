@@ -1,19 +1,12 @@
+# Instance for manage cli interface
+
 import argparse
 
 def get_args():
     parser = argparse.ArgumentParser(
-        prog='Test_Funcionales',
-        description='Ejecutar tests sobre un programa de python a partir de un archivo .txt con los parametros deseados.',
+        prog='revisador',
+        description='Verificar la funcionalidad de un programa de python a partir de un archivo de tests con parametros de entrada y salida definidos',
         epilog='https://github.com/Cristobal-Quezada-N/FPI-FPCY-USACH'
-    )
-    parser.add_argument(
-        '-d',
-        '--dir',
-        metavar='DIR-PROYECT',
-        required=True,
-        type = str,
-        nargs= 1,
-        help = 'ruta del directorio del proyecto.'
     )
     parser.add_argument(
         '-f',
@@ -22,16 +15,16 @@ def get_args():
         required=True,
         type = str,
         nargs= 1,
-        help = 'ruta relativa del archivo dentro de DIR-PROYECT al cual se le realizan tests funcionales.'
+        help = 'ruta del archivo al cual se le realizan tests funcionales'
     )
     parser.add_argument(
         '-t',
-        '--test-file',
-        metavar='FILE.txt',
+        '--tests-file',
+        metavar='FILE.md',
         required=True,
         type = str,
         nargs= 1,
-        help = 'ruta relativa del archivo dentro de DIR-PROYECT con los resultados de entrada y salida esperados.'
+        help = 'ruta del archivo con los parametros de entrada y salida esperados'
     )
 
     args = parser.parse_args()
