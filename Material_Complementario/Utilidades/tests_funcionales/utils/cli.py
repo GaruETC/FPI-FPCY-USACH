@@ -1,6 +1,7 @@
 # Instance for manage cli interface
 
 import argparse
+from definitions import Prog
 
 def get_args():
     parser = argparse.ArgumentParser(
@@ -19,7 +20,7 @@ def get_args():
     )
     parser.add_argument(
         '-t',
-        '--tests-file',
+        '--test-file',
         metavar='FILE.md',
         required=True,
         type = str,
@@ -28,4 +29,5 @@ def get_args():
     )
 
     args = parser.parse_args()
-    return args
+    program_obj = Prog(args)
+    return program_obj

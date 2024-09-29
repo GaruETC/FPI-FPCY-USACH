@@ -1,21 +1,11 @@
 from utils import cli
 import os, sys, subprocess
 
-args = cli.get_args()
-
-prog_dir_path       = os.path.abspath(
-    os.path.normpath(args.dir[0])
-)
-prog_file_path      = os.path.join(
-    prog_dir_path, os.path.normpath(args.file[0])
-)
-prog_test_path      = os.path.join(
-        prog_dir_path, os.path.normpath(args.test_file[0])
-)
+prog_info = cli.get_args()
 
 # Test getter
 prog_test_content = []
-with open(prog_test_path, 'r') as prog_test_file:
+with open(prog_info.test_path, 'r') as prog_test_file:
     prog_test_content = prog_test_file.read()
     prog_test_content = prog_test_content.splitlines()
 
@@ -41,7 +31,7 @@ for line in prog_test_content[1:]:
 
 # Runner
 for test in prog_tests:
-    prog_command = [sys.executable, prog_file_path]
+    prog_command = [sys.executable, prog_info.file_path]
     prog_test_time = 5
     prog_process = subprocess.Popen(
         prog_command,
@@ -49,7 +39,7 @@ for test in prog_tests:
         stdout  = subprocess.PIPE,
         stderr  = subprocess.PIPE,
         text    = True,
-        cwd     = os.path.dirname(prog_file_path)
+        cwd     = os.path.dirname(prog_info.file_path)
     )
     prog_stdout, prog_stderr = prog_process.communicate(input='\n'.join(test[0]), timeout=prog_test_time)
     prog_exit_code= prog_process.returncode
