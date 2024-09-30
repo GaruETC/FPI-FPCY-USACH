@@ -1,7 +1,7 @@
 # Instance for manage cli interface
 
 import argparse
-from definitions import Prog
+from utils.definitions import Prog
 
 def get_args() -> Prog:
     parser = argparse.ArgumentParser(
