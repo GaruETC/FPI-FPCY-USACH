@@ -23,6 +23,7 @@ prog_stdout, prog_stderr = prog_process.communicate(input=prog_input, timeout=pr
 prog_exit_code= prog_process.returncode
 
 
+print(f'{prog_info.file_name} - {prog_info.test_name}')
 if prog_stderr:
     print('Error: ', prog_stderr)
 elif prog_stdout[:-1] == prog_output:
@@ -30,6 +31,6 @@ elif prog_stdout[:-1] == prog_output:
 else:
     print("[X] Test Incorrecto")
     print(f'- Entrada del Programa: \n"""\n{prog_input}\n"""')
-    print(f'- Salida del Programa:\n"""\n{prog_stdout}\n"""')
+    print(f'- Salida del Programa:\n"""\n{prog_stdout}"""')
     print(f'- Salida Esperada \n"""\n{prog_output}\n"""')
     print("\n\n")

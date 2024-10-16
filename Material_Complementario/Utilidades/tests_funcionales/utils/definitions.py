@@ -13,12 +13,20 @@ class Test:
 
 @dataclass
 class Prog:
+    file_name: str
     file_path: str
+    test_name: str
     test_path: str
 
     def __init__(self, prog_args: Namespace):
+        self.file_name      = os.path.basename(
+            os.path.normpath(prog_args.file[0])
+        )
         self.file_path      = os.path.abspath(
             os.path.normpath(prog_args.file[0])
+        )
+        self.test_name      = os.path.basename(
+            os.path.normpath(prog_args.test_file[0])
         )
         self.test_path     = os.path.abspath(
             os.path.normpath(prog_args.test_file[0])
