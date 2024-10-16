@@ -7,7 +7,7 @@ prog_info = cli.get_args()
 test = prog_info.get_test()
 
 # Runner
-prog_command = [sys.executable, prog_info.file_path]
+prog_command = [sys.executable, prog_info.script_file.path]
 prog_test_time = 5
 prog_process = subprocess.Popen(
     prog_command,
@@ -15,7 +15,7 @@ prog_process = subprocess.Popen(
     stdout  = subprocess.PIPE,
     stderr  = subprocess.PIPE,
     text    = True,
-    cwd     = os.path.dirname(prog_info.file_path)
+    cwd     = os.path.dirname(prog_info.script_file.path)
 )
 prog_input  = '\n'.join(test.input)
 prog_output  = '\n'.join(test.output)
@@ -23,7 +23,7 @@ prog_stdout, prog_stderr = prog_process.communicate(input=prog_input, timeout=pr
 prog_exit_code= prog_process.returncode
 
 
-print(f'{prog_info.file_name} - {prog_info.test_name}')
+print(f'{prog_info.script_file.name} - {prog_info.test_file.name}')
 if prog_stderr:
     print('Error: ', prog_stderr)
 elif prog_stdout[:-1] == prog_output:

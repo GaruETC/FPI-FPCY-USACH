@@ -4,6 +4,17 @@ from argparse import Namespace
 from dataclasses import dataclass
 
 @dataclass
+class File:
+    name: str
+    path: str
+    def __init__(self, file_path):
+        file_path = os.path.normpath(file_path)
+        self.name = os.path.basename(
+            file_path
+        )
+        self.path = os.path.abspath(file_path)
+
+@dataclass
 class Test:
     input:  str
     output: str
@@ -13,26 +24,14 @@ class Test:
 
 @dataclass
 class Prog:
-    file_name: str
-    file_path: str
-    test_name: str
-    test_path: str
+    script_file: File
+    test_file: File
 
     def __init__(self, prog_args: Namespace):
-        self.file_name      = os.path.basename(
-            os.path.normpath(prog_args.file[0])
-        )
-        self.file_path      = os.path.abspath(
-            os.path.normpath(prog_args.file[0])
-        )
-        self.test_name      = os.path.basename(
-            os.path.normpath(prog_args.test_file[0])
-        )
-        self.test_path     = os.path.abspath(
-            os.path.normpath(prog_args.test_file[0])
-        )
+        self.script_file    = File(prog_args.file[0])
+        self.test_file      = File(prog_args.test_file[0])
     def get_test(self):
-        with open(self.test_path, 'r', encoding='utf-8') as test_file:
+        with open(self.test_file.path, 'r', encoding='utf-8') as test_file:
             test_content    = test_file.read()
             test_content    = test_content.splitlines()
         input_index_start   = test_content.index('Entradas')
